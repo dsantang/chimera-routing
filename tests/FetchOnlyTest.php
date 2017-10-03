@@ -27,7 +27,7 @@ final class FetchOnlyTest extends RoutingTestCase
                                    ->withAttribute(Attributes::PROCESSED, true);
 
         $queryBus = $this->createQueryBus($request, self::QUERY, self::RESULT);
-        $handler  = $this->createDelegate($expectedRequest, $response);
+        $handler  = $this->createRequestHandler($expectedRequest, $response);
 
         $middleware = new FetchOnly($queryBus, self::QUERY);
 

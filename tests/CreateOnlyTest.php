@@ -30,7 +30,7 @@ final class CreateOnlyTest extends RoutingTestCase
         $processedRequest = $expectedRequest->withAttribute(Attributes::PROCESSED, true);
 
         $commandBus = $this->createCommandBus($expectedRequest, self::COMMAND);
-        $handler    = $this->createDelegate($processedRequest, $response);
+        $handler    = $this->createRequestHandler($processedRequest, $response);
 
         $middleware = new CreateOnly(
             $commandBus,

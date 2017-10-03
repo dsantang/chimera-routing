@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Lcobucci\Chimera\Routing;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Lcobucci\Chimera\CommandBus;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -42,14 +42,14 @@ final class CreateOnly implements MiddlewareInterface
         $this->routeName   = $routeName;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler)
     {
         $request = $request->withAttribute(Attributes::GENERATED_ID, ($this->idGenerator)())
                            ->withAttribute(Attributes::RESOURCE_LOCATION, $this->routeName);
 
         $this->commandBus->handle($this->command, $request);
 
-        return $delegate->process(
+        return $handler->handle(
             $request->withAttribute(Attributes::PROCESSED, true)
         );
     }

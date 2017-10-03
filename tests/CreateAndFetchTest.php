@@ -34,7 +34,7 @@ final class CreateAndFetchTest extends RoutingTestCase
 
         $commandBus = $this->createCommandBus($handledRequest, self::COMMAND);
         $queryBus   = $this->createQueryBus($handledRequest, self::QUERY, self::RESULT);
-        $handler    = $this->createDelegate($processedRequest, $response);
+        $handler    = $this->createRequestHandler($processedRequest, $response);
 
         $middleware = new CreateAndFetch(
             $commandBus,

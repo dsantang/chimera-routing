@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Lcobucci\Chimera\Routing\Tests;
 
 use Interop\Http\Server\RequestHandlerInterface;
-use Interop\Http\ServerMiddleware\DelegateInterface;
 use Lcobucci\Chimera\CommandBus;
 use Lcobucci\Chimera\QueryBus;
 use Psr\Http\Message\ResponseInterface;
@@ -40,14 +39,14 @@ abstract class RoutingTestCase extends \PHPUnit\Framework\TestCase
         return $bus;
     }
 
-    protected function createDelegate(
+    protected function createRequestHandler(
         ServerRequestInterface $request,
         ResponseInterface $response
-    ): DelegateInterface {
-        $handler = $this->createMock(DelegateInterface::class);
+    ): RequestHandlerInterface {
+        $handler = $this->createMock(RequestHandlerInterface::class);
 
         $handler->expects($this->once())
-                ->method('process')
+                ->method('handle')
                 ->with($this->equalTo($request))
                 ->willReturn($response);
 

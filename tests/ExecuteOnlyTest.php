@@ -25,7 +25,7 @@ final class ExecuteOnlyTest extends RoutingTestCase
         $expectedRequest = $request->withAttribute(Attributes::PROCESSED, true);
 
         $commandBus = $this->createCommandBus($request, self::COMMAND);
-        $handler    = $this->createDelegate($expectedRequest, $response);
+        $handler    = $this->createRequestHandler($expectedRequest, $response);
 
         $middleware = new ExecuteOnly($commandBus, self::COMMAND);
 

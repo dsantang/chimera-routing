@@ -29,7 +29,7 @@ final class ExecuteAndFetchTest extends RoutingTestCase
 
         $commandBus = $this->createCommandBus($request, self::COMMAND);
         $queryBus   = $this->createQueryBus($request, self::QUERY, self::RESULT);
-        $handler    = $this->createDelegate($expectedRequest, $response);
+        $handler    = $this->createRequestHandler($expectedRequest, $response);
 
         $middleware = new ExecuteAndFetch($commandBus, $queryBus, self::COMMAND, self::QUERY);
 
